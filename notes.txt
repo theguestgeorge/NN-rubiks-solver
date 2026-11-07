@@ -1,0 +1,12 @@
+Going through the development process has lead me to the conclusion
+that neural networks may actual lend themselves to this problem
+because training the model on fresh data is always possible
+(as there are 43 quintillion states the cube can be in) and 
+labelling data via reversing scrambles is incredibly easy
+
+however due to such a large state space the neural network might
+struggle to make meaningful connections 
+
+might be a good idea to train a model to determine how many moves
+away a scramble is from being solved and use this as a heuristic
+for the actualy cube solving nn 
