@@ -1,6 +1,7 @@
 import model
 import scramble
 from torch import nn, torch
+from scramble import *
 
 class ResBlock(nn.Module):
     def __init__(self, dim):
@@ -20,3 +21,16 @@ class PolicyNet(nn.Module):
         self.out = nn.Linear(hidden, 18)
     def forward(self, x):
         return self.out(self.blocks(self.inp(x)))
+
+model = PolicyNet()
+opt = torch.optim.Adam(model.parameters(), lr=1e-3)
+loss_fn = nn.CrossEntropyLoss()
+
+for step in range(10_000):
+    x, y = make_samples(num_scrambles=50)   # 1000 samples
+    loss = loss_fn(model(x), y)
+    opt.zero_grad()
+    loss.backward()
+    opt.step()
+    if step % 100 == 0:
+        print(step, loss.item())
